@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36203.30 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConnector.TestAPI", "TestConnector.TestAPI\TestConnector.TestAPI.csproj", "{D0A31919-ADB5-4625-9B57-16C274BAE812}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConnectorLibary.TestAPI", "TestConnector.TestAPI\TestConnectorLibary.TestAPI.csproj", "{D0A31919-ADB5-4625-9B57-16C274BAE812}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConnectorLibary", "TestConnector\TestConnectorLibary.csproj", "{7D1E0B99-93E1-4E6A-9604-F460023FAD45}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{D0A31919-ADB5-4625-9B57-16C274BAE812}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0A31919-ADB5-4625-9B57-16C274BAE812}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0A31919-ADB5-4625-9B57-16C274BAE812}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D1E0B99-93E1-4E6A-9604-F460023FAD45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D1E0B99-93E1-4E6A-9604-F460023FAD45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D1E0B99-93E1-4E6A-9604-F460023FAD45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D1E0B99-93E1-4E6A-9604-F460023FAD45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

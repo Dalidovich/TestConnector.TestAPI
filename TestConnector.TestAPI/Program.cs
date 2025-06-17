@@ -1,5 +1,4 @@
-
-namespace TestConnector.TestAPI
+namespace TestConnectorLibary.TestAPI
 {
     public class Program
     {
@@ -17,6 +16,7 @@ namespace TestConnector.TestAPI
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+
             }
             app.UseHttpsRedirection();
             app.UseAuthorization();
