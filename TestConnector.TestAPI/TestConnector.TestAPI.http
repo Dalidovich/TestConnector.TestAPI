@@ -1,0 +1,6 @@
+@TestConnector.TestAPI_HostAddress = http://localhost:5210
+
+GET {{TestConnector.TestAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
