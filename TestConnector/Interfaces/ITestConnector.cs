@@ -20,16 +20,16 @@ namespace TestConnectorLibary.Interfaces
         event Action<Trade> NewBuyTrade;
         event Action<Trade> NewSellTrade;
 
-        //заменил на Task для поддерки асинхронности
+        //Заменил на Task для поддерки асинхронности
         Task SubscribeTrades(string pair, int maxCount = 100);
         Task UnsubscribeTrades(string pair);
 
 
-        //изменил Action<Candle> на Action<List<Candle>> для получения всех свечей, а не только update записей
+        //Изменил Action<Candle> на Action<List<Candle>> для получения всех свечей, а не только update записей
         event Action<List<Candle>> CandleSeriesProcessing;
 
-        //заменил на Task для поддерки асинхронности
-        //убрал параметры DateTimeOffset? from = null, DateTimeOffset? to = null, long? count = 0 так как они не нужны, ибо мы подписываемя на канал 
+        //Заменил на Task для поддерки асинхронности
+        //убрал параметры DateTimeOffset? from = null, DateTimeOffset? to = null, long? count = 0 так как они не нужны, ибо мы подписываемя на канал с постоянным обновлением
         Task SubscribeCandles(string pair, int periodInSec);
         Task UnsubscribeCandles(string pair);
 

@@ -25,6 +25,8 @@ namespace TestConnectorLibary.TestAPI
 
             var app = builder.Build();
 
+            //добавлен logger в консоли asp,
+            //в будущем можно вытащить этот логер в какуюто внешнию систему ELK, или просто Ѕƒ
             var eventLogger = app.Services.GetRequiredService<WebSocketLogger>();
             eventLogger.SubscribeEvents();
 
