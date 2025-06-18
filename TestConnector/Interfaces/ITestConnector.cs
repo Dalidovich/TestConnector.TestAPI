@@ -21,7 +21,8 @@ namespace TestConnectorLibary.Interfaces
         event Action<Trade> NewSellTrade;
 
         //Заменил на Task для поддерки асинхронности
-        Task SubscribeTrades(string pair, int maxCount = 100);
+        //int maxCount = 100 не используется для подписки на Trades
+        Task SubscribeTrades(string pair);
         Task UnsubscribeTrades(string pair);
 
 

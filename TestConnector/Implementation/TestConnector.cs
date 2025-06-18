@@ -111,7 +111,7 @@ namespace TestConnectorLibary.Implementation
             await _wsClient.SubscribeCandlesAsync(message);
         }
 
-        public async Task SubscribeTrades(string pair, int maxCount = 100)
+        public async Task SubscribeTrades(string pair)
         {
             var FormatedPair = BaseConverter.FormatingPair(pair);
             var message = new SubscribeTradeRequestMessage(FormatedPair);

@@ -38,13 +38,12 @@ namespace TestConnectorLibary.TestAPI.Controllers
         }
 
         [HttpPost("/WS/trades/subscribe")]
-        public async Task<IActionResult> SubscribeTrades(string? pair, int periodInSec)
+        public async Task<IActionResult> SubscribeTrades(string? pair)
         {
             //test data
             pair = "BTC:USD";
-            periodInSec = 60;
 
-            await _testConnector.SubscribeTrades(pair, periodInSec);
+            await _testConnector.SubscribeTrades(pair);
 
             return Ok();
         }
