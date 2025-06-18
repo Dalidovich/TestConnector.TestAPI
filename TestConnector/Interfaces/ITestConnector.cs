@@ -2,7 +2,7 @@
 
 namespace TestConnectorLibary.Interfaces
 {
-    interface ITestConnector
+    public interface ITestConnector
     {
         #region Rest
 
@@ -15,17 +15,24 @@ namespace TestConnectorLibary.Interfaces
         #endregion
 
 
-        //#region Socket
+        #region Socket
 
-        //event Action<Trade> NewBuyTrade;
-        //event Action<Trade> NewSellTrade;
-        //void SubscribeTrades(string pair, int maxCount = 100);
-        //void UnsubscribeTrades(string pair);
+        event Action<Trade> NewBuyTrade;
+        event Action<Trade> NewSellTrade;
 
-        //event Action<Candle> CandleSeriesProcessing;
-        //void SubscribeCandles(string pair, int periodInSec, DateTimeOffset? from = null, DateTimeOffset? to = null, long? count = 0);
-        //void UnsubscribeCandles(string pair);
+        //заменил на Task для поддерки асинхронности
+        Task SubscribeTrades(string pair, int maxCount = 100);
+        Task UnsubscribeTrades(string pair);
 
-        //#endregion
+
+        //изменил Action<Candle> на Action<List<Candle>> для получения всех свечей, а не только update записей
+        event Action<List<Candle>> CandleSeriesProcessing;
+
+        //заменил на Task для поддерки асинхронности
+        //убрал параметры DateTimeOffset? from = null, DateTimeOffset? to = null, long? count = 0 так как они не нужны, ибо мы подписываемя на канал 
+        Task SubscribeCandles(string pair, int periodInSec);
+        Task UnsubscribeCandles(string pair);
+
+        #endregion
     }
 }

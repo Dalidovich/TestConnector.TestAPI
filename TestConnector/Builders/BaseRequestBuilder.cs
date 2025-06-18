@@ -4,8 +4,8 @@ namespace TestConnectorLibary.Builders
 {
     public class BaseRequestBuilder
     {
-        protected StringBuilder _Instance;
-        protected BaseRequestBuilder _InstanceBuilder;
+        private StringBuilder _Instance;
+        private BaseRequestBuilder _InstanceBuilder;
 
         public BaseRequestBuilder(string instance)
         {

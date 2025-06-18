@@ -24,7 +24,7 @@
         {
             foreach (var item in TimeAvailableValuesDictionary)
             {
-                if (period < item.Key)
+                if (period <= item.Key)
                 {
                     return item.Value;
                 }

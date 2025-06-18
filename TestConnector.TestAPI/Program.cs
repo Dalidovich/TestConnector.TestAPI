@@ -1,3 +1,7 @@
+using TestConnectorLibary.Implementation;
+using TestConnectorLibary.Interfaces;
+using TestConnectorLibary.WevSocket;
+
 namespace TestConnectorLibary.TestAPI
 {
     public class Program
@@ -10,7 +14,19 @@ namespace TestConnectorLibary.TestAPI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Logging.ClearProviders();
+            builder.Logging.AddConsole();
+
+            builder.Services.AddHttpClient();
+            builder.Services.AddSingleton<WebSocketClientParser>();
+            builder.Services.AddSingleton<ITestConnector, TestConnector>();
+
+            builder.Services.AddSingleton<WebSocketLogger>();
+
             var app = builder.Build();
+
+            var eventLogger = app.Services.GetRequiredService<WebSocketLogger>();
+            eventLogger.SubscribeEvents();
 
             if (app.Environment.IsDevelopment())
             {

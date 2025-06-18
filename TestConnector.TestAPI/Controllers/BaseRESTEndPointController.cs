@@ -1,17 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TestConnectorLibary.Implementation;
+using TestConnectorLibary.Interfaces;
 
 namespace TestConnectorLibary.TestAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class BaseEndPointController : ControllerBase
+    public class BaseRESTEndPointController : ControllerBase
     {
+        private readonly ITestConnector _testConnector;
+
+        public BaseRESTEndPointController(ITestConnector testConnector)
+        {
+            _testConnector = testConnector;
+        }
+
         [HttpGet("/REST/candles")]
         public async Task<IActionResult> GetCandlesREST(string? pair, int periodInSec, DateTimeOffset? from, DateTimeOffset? to = null, long? count = 0)
         {
-            var tc = new TestConnector(new HttpClient());
-
             //test data
             pair = "BTC:USD";
             periodInSec = 60;
@@ -19,7 +24,7 @@ namespace TestConnectorLibary.TestAPI.Controllers
             to = DateTimeOffset.UtcNow;
             count = 10;
 
-            var response = await tc.GetCandleSeriesAsync(pair, periodInSec, from, to, count);
+            var response = await _testConnector.GetCandleSeriesAsync(pair, periodInSec, from, to, count);
 
             return Ok(response);
         }
@@ -27,13 +32,11 @@ namespace TestConnectorLibary.TestAPI.Controllers
         [HttpGet("/REST/trades")]
         public async Task<IActionResult> GetTradesREST(string? pair, int maxCount)
         {
-            var tc = new TestConnector(new HttpClient());
-
             //test data
             pair = "BTC:USD";
             maxCount = 10;
 
-            var response = await tc.GetNewTradesAsync(pair, maxCount);
+            var response = await _testConnector.GetNewTradesAsync(pair, maxCount);
 
             return Ok(response);
         }
@@ -41,12 +44,10 @@ namespace TestConnectorLibary.TestAPI.Controllers
         [HttpGet("/REST/ticker")]
         public async Task<IActionResult> GetTikerREST(string? pair)
         {
-            var tc = new TestConnector(new HttpClient());
-
             //test data
             pair = "BTC:USD";
 
-            var response = await tc.GetTickerAsync(pair);
+            var response = await _testConnector.GetTickerAsync(pair);
 
             return Ok(response);
         }

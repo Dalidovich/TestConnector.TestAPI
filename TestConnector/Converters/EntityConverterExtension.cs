@@ -1,12 +1,19 @@
 ﻿using TestConnectorLibary.Entities;
+using TestConnectorLibary.Entities.WebSocketMessage;
+using TestConnectorLibary.Enums;
 
 namespace TestConnectorLibary.Converters
 {
-    public static class EntityConverter
+    public static class EntityConverterExtension
     {
-        public static List<Candle> ConvertToCandle(this List<List<decimal>> listOfDecimals, string pair)
+        public static List<Candle> ConvertToCandleArray(this List<List<decimal>> listOfListOfDecimals, string pair)
         {
-            return listOfDecimals.Select(calndle => new Candle()
+            return listOfListOfDecimals.Select(calndle => calndle.ConvertToCandle(pair)).ToList();
+        }
+
+        public static Candle ConvertToCandle(this List<decimal> calndle, string pair)
+        {
+            return new Candle()
             {
                 Pair = pair,
                 OpenPrice = calndle[1],
@@ -16,7 +23,7 @@ namespace TestConnectorLibary.Converters
                 TotalPrice = (calndle[1] + calndle[2] + calndle[3] + calndle[4]) / 4 * calndle[5],
                 TotalVolume = calndle[5],
                 OpenTime = DateTimeOffset.FromUnixTimeMilliseconds((long)calndle[0])
-            }).ToList();
+            };
         }
 
         public static Ticker ConvertToTicker(this List<decimal> ticker, string pair)
@@ -37,17 +44,34 @@ namespace TestConnectorLibary.Converters
             };
         }
 
-        public static List<Trade> ConvertToTrade(this List<List<decimal>> listOfDecimals, string pair)
+        public static List<Trade> ConvertToTradesArray(this List<List<decimal>> listOfListOfDecimals, string pair)
         {
-            return listOfDecimals.Select(trade => new Trade()
+            return listOfListOfDecimals.Select(trade => trade.ConvertToTrade(pair)).ToList();
+        }
+
+        public static Trade ConvertToTrade(this List<decimal> trade, string pair)
+        {
+            return new Trade()
             {
                 Pair = pair,
                 Price = trade[3],
                 Amount = trade[2],
-                Side = trade[2] > 0 ? "buy" : "sell",
+                Side = trade[2] > 0 ? TradeSideConst.buy : TradeSideConst.sell,
                 Time = DateTimeOffset.FromUnixTimeMilliseconds((long)trade[1]),
                 Id = trade[0].ToString(),
-            }).ToList();
+            };
+        }
+
+        public static string GetPair(this SpecificationResponseMessage specification)
+        {
+            if (specification.Symbol == null)
+            {
+                return specification.Key.Split(":")[2];
+            }
+            else
+            {
+                return specification.Symbol;
+            }
         }
     }
 }
